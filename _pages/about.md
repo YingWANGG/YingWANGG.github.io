@@ -1,26 +1,30 @@
 ---
 layout: about
-title: about
+title: About
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Moto. Etc.
+# subtitle: Northeastern University, Boston, MA.
 
 profile:
   align: right
-  image: prof_pic.jpg
-  image_circular: false # crops the image to make it circular
-  address: >
-    <p>555 your office number</p>
-    <p>123 your address street</p>
-    <p>Your City, State 12345</p>
+  image: headshot.jpg
+  image_circular: true # crops the image to make it circular
+  # address: >
+  #   <p>Chestnut Hill, MA</p>
+  #   <p>02467</p>
+
 
 news: true  # includes a list of news items
-latest_posts: true  # includes a list of the newest posts
+latest_posts: false  # includes a list of the newest posts
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 ---
 
-Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
+Welcome! I'm a first-year Ph.D. student in Computer Science at [Brown University](https://brown.edu). I work with [Prof. Srinath Sridhar](https://cs.brown.edu/people/ssrinath/) at [Interactive 3D Vision & Learning Lab](https://ivl.cs.brown.edu/).
 
-Put your address / P.O. box / other info right below your picture. You can also disable any of these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
+I completed my Master's degree at [Northeastern University](https://northeastern.edu), where I conducted research on topics related to robot perception and navigation with the guidance of [Prof. Huaizu Jiang](https://jianghz.me/) and [Prof. Taskin Padir](https://robot.neu.edu/).
 
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](http://fortawesome.github.io/Font-Awesome/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
+I had the opportunity to intern as a researcher at <a href="https://usa.honda-ri.com/">Honda Research Institute</a> (HRI). Throughout my two internships at HRI, my research primarily focused on visuotactile manipulation perception. I had the privilege of being supervised by Dr. Nawid Jamali and Dr. Soshi Iba.
+
+My research interests revolve around the convergence of computer vision, machine learning, and robotics, particularly in the field of robot perception (vison, tactile, point cloud, etc.). Perception plays a crucial role in various robotics domains, and I am currently focused on developing accurate and efficient models for environment and object interaction.
+
+I hold a Bachelor's degree in Computer Science and Economics (dual major) from [Rensselaer Polytechnic Institute](https://rpi.edu/).
