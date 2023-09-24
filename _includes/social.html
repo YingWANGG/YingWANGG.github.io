@@ -1,5 +1,5 @@
             {%- if site.email -%}
-            <a href="mailto:yw3076@nyu.edu" title="email"><i class="fas fa-envelope"></i></a>
+            <a href="mailto:{{ site.email | encode_email }}" title="email"><i class="fas fa-envelope"></i></a>
             {% endif %}
             {%- if site.telegram_username -%}
             <a href="https://telegram.me/{{ site.telegram_username }}" title="telegram"><i class="fab fa-telegram"></i></a>
@@ -32,10 +32,10 @@
             <a href="https://www.scopus.com/authid/detail.uri?authorId={{site.scopus_id}}" title="Scopus"><i class="ai ai-scopus"></i></a>
             {% endif %}
             {%- if site.github_username -%}
-            <a href="https://github.com/YingWANGG" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://github.com/{{ site.github_username }}" title="GitHub"><i class="fab fa-github"></i></a>
             {% endif %}
             {%- if site.linkedin_username -%}
-            <a href="https://www.linkedin.com/in/ying-wang-90611714a" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.linkedin.com/in/{{ site.linkedin_username }}" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
             {% endif %}
             {%- if site.twitter_username -%}
             <a href="https://twitter.com/{{ site.twitter_username }}" title="Twitter"><i class="fab fa-twitter"></i></a>
