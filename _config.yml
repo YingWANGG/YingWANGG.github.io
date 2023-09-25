@@ -70,8 +70,8 @@ og_image: # The site-wide (default for all links) Open Graph preview image
 # -----------------------------------------------------------------------------
 
 github_username: YingWANGG # your GitHub user name
-gitlab_username: yingwww_ # your GitLab user name
-twitter_username: # your Twitter handle
+gitlab_username: # your GitLab user name
+twitter_username: yingwww_ # your Twitter handle
 mastodon_username: # your mastodon instance+username in the format instance.tld/@username
 linkedin_username: ying-wang-90611714a # your LinkedIn user name
 telegram_username: # your Telegram user name
@@ -156,9 +156,9 @@ disqus_shortname: al-folio # put your disqus shortname
 # External sources.
 # If you have blog posts published on medium.com or other external sources,
 # you can display them in your blog by adding a link to the RSS feed.
-external_sources:
-  - name: medium.com
-    rss_url: https://medium.com/@al-folio/feed
+#external_sources:
+#  - name: medium.com
+#    rss_url: https://medium.com/@al-folio/feed
 
 # -----------------------------------------------------------------------------
 # Collections
