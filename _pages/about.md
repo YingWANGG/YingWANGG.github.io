@@ -20,6 +20,6 @@ social: true  # includes social icons at the bottom of the page
 teaching: true
 ---
 
-I am a recent MSDS graduate from New York University's Center for Data Science, where I researched vision-language representation learning under the supervision of [Prof. Yann LeCun](https://scholar.google.com/citations?user=WLN3QrAAAAAJ&hl=en) and [Prof. Mengye Ren](https://mengyeren.com/). Prior to this, I studied Computer Science, Statistics, and Finance at McGill University in Montreal, Canada.
+I am an incoming PhD student at NYU [Center for Data Science](https://cds.nyu.edu/) under [Prof. Andrew Wilson](https://cims.nyu.edu/~andrewgw/) and [Prof. Mengye Ren](https://mengyeren.com/). I received my MSDS at NYU as well. Prior to moving to New York, I studied Computer Science, Statistics, and Finance at McGill University in Montreal, Canada.
 
-My primary research interest lies in building systems that can emulate human-like perception by seamlessly integrating various modalities such as text, audio, images, and videos. I also remain open to delving into novel areas within machine learning that captivate my curiosity, given that I am still in the early stage of my research journey. Presently, I am looking for PhD opportunities for the year 2024.
+My primary research interest lies in building systems that can emulate human-like perception by seamlessly integrating various modalities such as text, audio, images, and videos. I also remain open to delving into novel areas within machine learning that captivate my curiosity, given that I am still in the early stage of my research journey. 
