@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Received Travel Award for NeurIPS 2023! See you in New Orleans :us: :)
+Received Travel Award for NeurIPS 2023! See you in New Orleans ⚜️
