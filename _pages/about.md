@@ -25,4 +25,4 @@ I am a first-year PhD student at NYU [Center for Data Science](https://cds.nyu.e
 
 Prior to starting my PhD, I earned an MS in Data Science at NYU, where I was honored to be featured in the [alumni spotlight](https://x.com/yingwww_/status/1866572337321066522). I completed my undergraduate studies in Computer Science, Statistics, and Finance at McGill University in Montreal, Canada.
 
-Previously, I worked in research and engineering teams at Meta, Amazon, and Morgan Stanley. I also served as a reviewer for CVPR(2024, 2025), AAAI(2025), WACV(2025),  ECCV(2024). 
+I’ve had the opportunity to contribute to research and engineering teams at Meta, Amazon, and Morgan Stanley. I also served as a reviewer for CVPR(2024, 2025), AAAI(2025), WACV(2025),  ECCV(2024). 
