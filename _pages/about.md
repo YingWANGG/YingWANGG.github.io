@@ -3,6 +3,10 @@ layout: about
 title: About
 permalink: /
 
+cv: CV.pdf
+google_scholar: https://scholar.google.com/citations?user=5BN__1MAAAAJ&hl=en
+linkedin: https://www.linkedin.com/in/ying-wang-90611714a/
+twitter: https://x.com/yingwww_
 
 profile:
   align: right
