@@ -23,6 +23,6 @@ teaching: true
 
 I am a first-year PhD student at NYU [Center for Data Science](https://cds.nyu.edu/), advised by [Prof. Andrew Wilson](https://cims.nyu.edu/~andrewgw/) and [Prof. Mengye Ren](https://mengyeren.com/) in the [CILVR Lab](https://wp.nyu.edu/cilvr/). My research focuses on **multimodal learning**, aiming to build adaptive and trustworthy machine learning systems that integrate diverse modalities such as text, images, and videos. 
 
-Prior to starting my PhD, I earned an MS in Data Science at NYU, where I was honored to be featured in the [alumni spotlight](https://x.com/yingwww_/status/1866572337321066522). I completed my undergraduate studies in Computer Science, Statistics, and Finance at McGill University in Montreal, Canada.
+Prior to starting my PhD, I earned an MS in Data Science at NYU, where I was honored to be featured in the [alumni spotlight](https://cds.nyu.edu/alumni-spotlights/). I completed my undergraduate studies in Computer Science, Statistics, and Finance at McGill University in Montreal, Canada.
 
 I’ve had the opportunity to contribute to research and engineering teams at Meta, Amazon, and Morgan Stanley. I also served as a reviewer for CVPR(2024, 2025), AAAI(2025), WACV(2025),  ECCV(2024). 
