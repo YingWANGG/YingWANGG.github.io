@@ -21,7 +21,7 @@ social: true  # includes social icons at the bottom of the page
 teaching: true
 ---
 
-I am a first-year PhD student at NYU [Center for Data Science](https://cds.nyu.edu/), advised by [Prof. Andrew Wilson](https://cims.nyu.edu/~andrewgw/) and [Prof. Mengye Ren](https://mengyeren.com/) in the [CILVR Lab](https://wp.nyu.edu/cilvr/). My research focuses on **multimodal learning**, aiming to build adaptive and trustworthy machine learning systems that integrate diverse modalities such as text, images, and videos. 
+I am a first-year PhD student at NYU [Center for Data Science](https://cds.nyu.edu/) in the [CILVR Lab](https://wp.nyu.edu/cilvr/). My research focuses on **multimodal learning**, aiming to build adaptive and trustworthy machine learning systems that integrate diverse modalities such as text, images, and videos. 
 
 Prior to starting my PhD, I earned an MS in Data Science at NYU, where I was honored to be featured in the [alumni spotlight](https://cds.nyu.edu/alumni-spotlights/). I completed my undergraduate studies in Computer Science, Statistics, and Finance at McGill University in Montreal, Canada.
 
