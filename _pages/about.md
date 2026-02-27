@@ -21,7 +21,7 @@ social: true  # includes social icons at the bottom of the page
 teaching: true
 ---
 
-I am a PhD student in the [CILVR Lab](https://wp.nyu.edu/cilvr/) at NYU [Center for Data Science](https://cds.nyu.edu/), working with Prof. [Mengye Ren](https://mengyeren.com/) and Prof. [Yann LeCun](http://yann.lecun.com/). I'm interested in reasoning, planning and multimodal learning.
+I am a PhD student in the [CILVR Lab](https://wp.nyu.edu/cilvr/) at NYU [Center for Data Science](https://cds.nyu.edu/), working on **world models** with Prof. [Mengye Ren](https://mengyeren.com/) and Prof. [Yann LeCun](http://yann.lecun.com/). 
 
 Prior to starting my PhD, I earned an MS in Data Science at NYU as well and a BS in Computer Science, Statistics, and Finance at McGill University.
 
