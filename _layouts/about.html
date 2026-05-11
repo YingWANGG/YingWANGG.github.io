@@ -1,76 +1,413 @@
 ---
-layout: default
 ---
+<!doctype html>
+<html lang="{{ site.lang | default: 'en' }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ site.title | default: site.first_name | append: ' ' | append: site.last_name }}</title>
+{%- if site.description %}<meta name="description" content="{{ site.description | strip_html | strip_newlines | truncate: 160 }}">{%- endif %}
+{%- if site.icon != blank and site.icon.size <= 4 %}
+<link rel="shortcut icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>{{ site.icon }}</text></svg>">
+{%- elsif site.icon != blank %}
+<link rel="shortcut icon" href="{{ site.icon | prepend: '/assets/img/' | relative_url}}"/>
+{%- endif %}
+<link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
 
-<div class="post">
-        <header class="post-header">
-          <h1 class="post-title">
-           {% if site.title == "blank" -%}{{ site.first_name }} {{ site.middle_name }} {{ site.last_name }}{%- else -%}{{ site.title }}{%- endif %}
-          </h1>
-          <p class="desc">{{ page.subtitle }}</p>
-        </header>
+<style>
+  :root {
+    --paper:        oklch(0.972 0.012 82);
+    --paper-edge:   oklch(0.945 0.018 78);
+    --ink:          oklch(0.225 0.018 60);
+    --ink-soft:     oklch(0.42 0.015 60);
+    --ink-faint:    oklch(0.62 0.012 60);
+    --rule:         oklch(0.82 0.018 60);
+    --accent:       oklch(0.46 0.095 42);
+    --accent-soft:  oklch(0.46 0.095 42 / 0.18);
+    --highlight:    oklch(0.92 0.06 95 / 0.55);
 
-        <article>
-          {% if page.profile -%}
-          <div class="profile float-{%- if page.profile.align == 'left' -%}left{%- else -%}right{%- endif -%}" style="max-width: 12rem; {% if page.profile.align == 'left' %}margin-right: 1.5rem;{% else %}margin-left: 1.5rem;{% endif %}">
-            {%- if page.profile.image %}
-              {%- assign profile_image_path = page.profile.image | prepend: 'assets/img/' -%}
+    --hand:  'Caveat', cursive;
+    --serif: 'EB Garamond', Georgia, serif;
+    --mono:  'JetBrains Mono', ui-monospace, monospace;
 
-              {% if page.profile.image_circular %}
-                {%- assign profile_image_class = "img-fluid z-depth-1 rounded-circle" -%}
-              {% else %}
-                {%- assign profile_image_class = "img-fluid z-depth-1 rounded" -%}
-              {% endif %}
+    --max: 820px;
+    --grain: 1;
+  }
 
-              {% include figure.html
-              path=profile_image_path
-              class=profile_image_class
-              alt=page.profile.image -%}
-            {% endif -%}
-            {%- if page.profile.address %}
-            <div class="address">
-              {{ page.profile.address }}
-            </div>
-            {%- endif %}
-            <p align="center">
-              <a href="https://twitter.com/yingwww_" class="twitter-follow-button"
-                data-show-count="false">Follow @yingwww_</a>
-              <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-            </p>
-          </div>
-          {%- endif %}
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 19px;
+    line-height: 1.65;
+    font-feature-settings: "liga", "kern", "onum";
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+    min-height: 100vh;
+  }
 
-          <div class="clearfix">
-            {{ content }}
-          </div>
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: calc(var(--grain) * 0.55);
+    background-image:
+      radial-gradient(oklch(0.55 0.04 60 / 0.045) 1px, transparent 1.2px),
+      radial-gradient(oklch(0.4 0.04 60 / 0.035) 1px, transparent 1.4px);
+    background-size: 3px 3px, 7px 7px;
+    background-position: 0 0, 1px 2px;
+    mix-blend-mode: multiply;
+  }
+  body::after {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(ellipse at center, transparent 55%, var(--paper-edge) 100%);
+    opacity: 0.6;
+  }
 
-          {% if page.news and site.announcements.enabled -%}
-            <h2><a href="{{ '/news/' | relative_url }}" style="color: inherit;">News</a></h2>
-            {%- include news.html limit=true %}
-          {%- endif %}
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 72px 28px 96px;
+  }
 
-          {% if page.latest_posts -%}
-            <h2><a href="{{ '/blog/' | relative_url }}" style="color: inherit;">latest posts</a></h2>
-            {%- include latest_posts.html %}
-          {%- endif %}
+  /* --- Header / Hero ---------------------------------------------------- */
+  .hero { margin-bottom: 64px; }
+  .intro-row {
+    display: grid;
+    grid-template-columns: 1fr 180px;
+    gap: 44px;
+    align-items: start;
+    margin-top: 28px;
+  }
+  @media (max-width: 640px) {
+    .intro-row { grid-template-columns: 1fr; }
+    .portrait { order: -1; justify-self: center; }
+  }
 
-          {% if page.selected_papers -%}
-            <h2><a href="{{ '/publications/' | relative_url }}" style="color: inherit;">Selected Publications</a></h2>
-            {%- include selected_papers.html %}
-          {%- endif %}
+  .name {
+    font-family: var(--hand);
+    font-weight: 600;
+    font-size: clamp(64px, 11vw, 104px);
+    line-height: 0.95;
+    margin: 0;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    transform: rotate(-1.2deg);
+    transform-origin: left center;
+  }
+  .name .dot {
+    display: inline-block;
+    color: var(--accent);
+    margin-left: 0.08em;
+    vertical-align: -0.02em;
+  }
+  .name .dot svg { display: block; }
 
-          {%- if page.social %}
-            <div class="social">
-              <div class="contact-icons">
-                {% include social.html %}
-              </div>
+  .portrait {
+    position: relative;
+    width: 180px; height: 180px;
+  }
+  .portrait img {
+    width: 100%; height: 100%;
+    border-radius: 2px;
+    object-fit: cover;
+    filter: contrast(1.02) saturate(0.92);
+    display: block;
+  }
 
-              <div class="contact-note">
-                {{ site.contact_note }}
-              </div>
+  /* --- Links — hand-drawn underline ------------------------------------ */
+  a {
+    color: var(--accent);
+    text-decoration: none;
+    background-image:
+      linear-gradient(transparent calc(100% - 2px), var(--accent-soft) calc(100% - 2px));
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    padding-bottom: 1px;
+    transition: color .2s ease;
+  }
+  a:hover { color: var(--ink); }
 
-            </div>
-          {%- endif %}
-        </article>
+  .body-text a {
+    color: var(--ink);
+    background-image:
+      linear-gradient(transparent calc(100% - 2px), var(--accent) calc(100% - 2px));
+  }
+  .body-text a:hover {
+    background-image: linear-gradient(transparent 0, var(--highlight) 0);
+  }
 
-</div>
+  /* --- Section heading -------------------------------------------------- */
+  .section {
+    position: relative;
+    margin: 80px 0 28px;
+  }
+  .section h2 {
+    font-family: var(--hand);
+    font-weight: 600;
+    font-size: 44px;
+    margin: 0;
+    color: var(--ink);
+    line-height: 1;
+    display: inline-block;
+    position: relative;
+    transform: rotate(-0.6deg);
+  }
+  .section h2::after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: -4px; right: -8px;
+    bottom: -10px;
+    height: 8px;
+    background:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 8' preserveAspectRatio='none'><path d='M2 5 C 30 2, 60 7, 90 4 S 150 6, 198 3' stroke='%23a67a52' stroke-width='1.6' fill='none' stroke-linecap='round'/></svg>") center / 100% 100% no-repeat;
+    opacity: 0.85;
+  }
+
+  /* --- About body ------------------------------------------------------- */
+  .intro { margin: 0 0 18px; }
+  .intro p { margin: 0 0 14px; max-width: 64ch; }
+  .intro p:last-child {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--ink-faint);
+    letter-spacing: 0.02em;
+    margin-top: 14px;
+    line-height: 1.8;
+  }
+  .intro p:last-child a {
+    color: var(--ink-soft);
+    background-image:
+      linear-gradient(transparent calc(100% - 2px), var(--accent-soft) calc(100% - 2px));
+  }
+  .intro p:last-child a:hover { color: var(--ink); }
+  .body-text strong { font-weight: 600; color: var(--ink); }
+
+  /* --- News — journal entries with margin dates ------------------------ */
+  .news {
+    border-top: 1px dashed var(--rule);
+    margin-top: 14px;
+    max-height: 260px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--rule) transparent;
+    mask-image: linear-gradient(to bottom, black 0, black calc(100% - 24px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 0, black calc(100% - 24px), transparent 100%);
+    padding-bottom: 6px;
+  }
+  .news::-webkit-scrollbar { width: 6px; }
+  .news::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 3px; }
+  .news::-webkit-scrollbar-track { background: transparent; }
+  .entry {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 22px;
+    padding: 9px 0;
+    border-bottom: 1px dashed var(--rule);
+    align-items: baseline;
+    font-size: 17px;
+    line-height: 1.45;
+  }
+  @media (max-width: 640px) {
+    .entry { grid-template-columns: 1fr; gap: 2px; padding: 8px 0; }
+  }
+  .entry .date {
+    font-family: var(--hand);
+    font-size: 21px;
+    color: var(--accent);
+    text-align: right;
+    line-height: 1;
+    padding-top: 2px;
+    transform: rotate(-1.5deg);
+    transform-origin: right center;
+    white-space: nowrap;
+  }
+  @media (max-width: 640px) {
+    .entry .date {
+      text-align: left;
+      font-size: 22px;
+      transform: rotate(-1deg);
+      transform-origin: left center;
+    }
+  }
+  .entry .what {
+    font-family: var(--serif);
+    color: var(--ink);
+    line-height: 1.55;
+  }
+  .entry .what p { margin: 0; display: inline; }
+  .entry .what .emoji { font-family: 'EB Garamond', serif; font-style: normal; }
+
+  /* --- Papers ---------------------------------------------------------- */
+  .papers { margin-top: 8px; }
+  .paper {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 28px;
+    padding: 22px 0;
+    border-bottom: 1px dashed var(--rule);
+  }
+  @media (max-width: 640px) {
+    .paper { grid-template-columns: 1fr; gap: 12px; }
+  }
+  .paper .thumb {
+    width: 130px; height: 130px;
+    background: oklch(0.93 0.018 80);
+    border: 1px solid var(--rule);
+    overflow: hidden;
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    transform: rotate(-1deg);
+    box-shadow:
+      1px 2px 0 oklch(0.85 0.02 70),
+      0 4px 14px oklch(0.4 0.04 60 / 0.07);
+  }
+  .paper:nth-child(2n) .thumb { transform: rotate(1.2deg); }
+  .paper:nth-child(3n) .thumb { transform: rotate(-0.6deg); }
+  .paper .thumb img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  @media (max-width: 640px) {
+    .paper .thumb { width: 150px; height: 150px; }
+  }
+  .paper .meta {
+    display: flex; flex-direction: column;
+    gap: 4px;
+    padding-top: 2px;
+  }
+  .paper .venue {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 2px;
+  }
+  .paper .title {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 21px;
+    line-height: 1.3;
+    color: var(--ink);
+    margin: 0 0 4px;
+  }
+  .paper .title a {
+    color: var(--ink);
+    background-image: none;
+    padding-bottom: 0;
+  }
+  .paper .title a:hover {
+    background-image: linear-gradient(transparent 60%, var(--highlight) 60%);
+  }
+  .paper .authors {
+    font-family: var(--serif);
+    font-size: 16px;
+    color: var(--ink-soft);
+    font-style: italic;
+    line-height: 1.45;
+  }
+  .paper .authors .me {
+    color: var(--ink);
+    font-style: normal;
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+  .paper .authors a {
+    color: var(--ink-soft);
+    background-image:
+      linear-gradient(transparent calc(100% - 2px), var(--accent-soft) calc(100% - 2px));
+  }
+  .paper .authors a:hover { color: var(--ink); }
+  .paper .links {
+    margin-top: 8px;
+    display: flex; flex-wrap: wrap; gap: 14px;
+    font-family: var(--hand);
+    font-size: 22px;
+  }
+  .paper .links a {
+    color: var(--accent);
+    background-image: none;
+    padding-bottom: 0;
+    line-height: 1;
+    transform: rotate(-1deg);
+    display: inline-block;
+    transition: transform .2s ease, color .2s ease;
+  }
+  .paper .links a:nth-child(2n) { transform: rotate(1.2deg); }
+  .paper .links a:nth-child(3n) { transform: rotate(-0.6deg); }
+  .paper .links a:hover {
+    color: var(--ink);
+    transform: rotate(0deg) scale(1.06);
+  }
+
+  ::selection { background: var(--highlight); color: var(--ink); }
+</style>
+</head>
+<body>
+
+<main>
+
+  <!-- HERO ------------------------------------------------------------- -->
+  <header class="hero">
+    <h1 class="name">{% if site.title == "blank" -%}{{ site.first_name }} {{ site.middle_name }} {{ site.last_name }}{%- else -%}{{ site.title }}{%- endif %}<span class="dot" aria-hidden="true"><svg viewBox="0 0 56 36" width="0.36em" height="0.24em"><path d="M12 30 Q2 30 3 21 Q2 12 12 12 Q13 4 22 5 Q26 1 32 4 Q40 2 43 10 Q53 10 53 19 Q55 28 45 30 Q40 34 30 31 Q22 35 16 31 Q13 32 12 30 Z" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 19 Q21.4 18.4 21.8 19" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/><path d="M33 19 Q33.4 18.4 33.8 19" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/><path d="M22 23 Q27 26 32 23" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/></svg></span></h1>
+
+    <div class="intro-row">
+      <div class="body-text intro">
+        {{ content }}
+      </div>
+
+      {% if page.profile and page.profile.image %}
+      <div class="portrait">
+        <img src="{{ page.profile.image | prepend: '/assets/img/' | relative_url }}" alt="Portrait of {{ site.first_name }} {{ site.last_name }}">
+      </div>
+      {% endif %}
+    </div>
+  </header>
+
+  <!-- NEWS ------------------------------------------------------------- -->
+  {% if site.news != blank %}
+  <section class="section"><h2>news</h2></section>
+  <div class="news">
+    {% assign news = site.news | sort: 'date' | reverse %}
+    {% for item in news %}
+    <div class="entry">
+      <div class="date">{{ item.date | date: "%b" }} &rsquo;{{ item.date | date: "%y" }}</div>
+      <div class="what">
+        {%- if item.inline -%}
+          {{ item.content | remove: '<p>' | remove: '</p>' | emojify }}
+        {%- else -%}
+          <a href="{{ item.url | relative_url }}">{{ item.title }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <!-- PAPERS ----------------------------------------------------------- -->
+  <section class="section"><h2>selected papers</h2></section>
+  <div class="papers">
+    {% bibliography -f {{ site.scholar.bibliography }} -q @*[selected=true]* --template bib_handwritten %}
+  </div>
+
+</main>
+
+</body>
+</html>

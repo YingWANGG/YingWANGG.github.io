@@ -1,0 +1,78 @@
+---
+---
+<article class="paper">
+  <div class="thumb">
+    {%- if entry.preview %}
+      {%- if entry.preview contains '://' -%}
+        <img src="{{ entry.preview }}" alt="">
+      {%- else -%}
+        <img src="{{ entry.preview | prepend: '/assets/img/publication_preview/' | relative_url }}" alt="">
+      {%- endif -%}
+    {%- endif %}
+  </div>
+  <div class="meta">
+    <div class="venue">
+      {%- if entry.venue_short -%}
+        {{ entry.venue_short }}
+      {%- elsif entry.journal -%}
+        {{ entry.journal }}{% if entry.year %} {{ entry.year }}{% endif %}
+      {%- elsif entry.booktitle -%}
+        {{ entry.booktitle }}{% if entry.year %} {{ entry.year }}{% endif %}
+      {%- endif -%}
+    </div>
+    <h3 class="title">
+      {%- assign title_href = nil -%}
+      {%- if entry.html -%}{%- assign title_href = entry.html -%}
+      {%- elsif entry.pdf -%}
+        {%- if entry.pdf contains '://' -%}{%- assign title_href = entry.pdf -%}
+        {%- else -%}{%- assign title_href = entry.pdf | prepend: '/assets/pdf/' | relative_url -%}{%- endif -%}
+      {%- endif -%}
+      {%- if title_href -%}<a href="{{ title_href }}">{{ entry.title }}</a>{%- else -%}{{ entry.title }}{%- endif -%}
+    </h3>
+    <div class="authors">
+      {%- for author in entry.author_array -%}
+        {%- assign author_last_name = author.last | remove: "¶" | remove: "&" | remove: "*" | remove: "†" | remove: "^" -%}
+        {%- assign author_is_self = false -%}
+        {%- if site.scholar.last_name contains author_last_name -%}
+          {%- if site.scholar.first_name contains author.first -%}
+            {%- assign author_is_self = true -%}
+          {%- endif -%}
+        {%- endif -%}
+        {%- assign coauthor_url = nil -%}
+        {%- if site.data.coauthors[author_last_name] -%}
+          {%- for coauthor in site.data.coauthors[author_last_name] -%}
+            {%- if coauthor.firstname contains author.first -%}
+              {%- assign coauthor_url = coauthor.url -%}
+              {%- break -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+        {%- unless forloop.first %}, {% endunless -%}
+        {%- if author_is_self -%}
+          <span class="me">{{ author.first }} {{ author.last }}</span>
+        {%- elsif coauthor_url -%}
+          <a href="{{ coauthor_url }}">{{ author.first }} {{ author.last }}</a>
+        {%- else -%}
+          {{ author.first }} {{ author.last }}
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+    <div class="links">
+      {%- if entry.pdf -%}
+        {%- if entry.pdf contains '://' -%}
+          <a href="{{ entry.pdf }}">paper</a>
+        {%- else -%}
+          <a href="{{ entry.pdf | prepend: '/assets/pdf/' | relative_url }}">paper</a>
+        {%- endif -%}
+      {%- elsif entry.html -%}
+        <a href="{{ entry.html }}">paper</a>
+      {%- endif %}
+      {%- if entry.website %}
+        <a href="{{ entry.website }}">website</a>
+      {%- endif %}
+      {%- if entry.code %}
+        <a href="{{ entry.code }}">code</a>
+      {%- endif %}
+    </div>
+  </div>
+</article>
