@@ -152,7 +152,7 @@
   /* --- Section heading -------------------------------------------------- */
   .section {
     position: relative;
-    margin: 80px 0 28px;
+    margin: 56px 0 28px;
   }
   .section h2 {
     font-family: var(--hand);
@@ -253,6 +253,11 @@
 
   /* --- Papers ---------------------------------------------------------- */
   .papers { margin-top: 8px; }
+  .papers ol.bibliography,
+  .papers ol { list-style: none; padding: 0; margin: 0; }
+  .papers ol.bibliography > li,
+  .papers ol > li { padding: 0; margin: 0; }
+  .papers h2.bibliography { display: none; }
   .paper {
     display: grid;
     grid-template-columns: 130px 1fr;
@@ -404,7 +409,7 @@
   <!-- PAPERS ----------------------------------------------------------- -->
   <section class="section"><h2>selected papers</h2></section>
   <div class="papers">
-    {% bibliography -f {{ site.scholar.bibliography }} -q @*[selected=true]* --template bib_handwritten %}
+    {% bibliography -f {{ site.scholar.bibliography }} -q @*[selected=true]* --group_by none --template bib_handwritten %}
   </div>
 
 </main>

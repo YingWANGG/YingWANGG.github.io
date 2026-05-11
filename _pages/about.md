@@ -25,4 +25,4 @@ I am a PhD student in the [CILVR Lab](https://wp.nyu.edu/cilvr/) at NYU [Center 
 
 Prior to starting my PhD, I earned an MS in Data Science at NYU as well and a BS in Computer Science, Statistics, and Finance at McGill University.
 
-[yw3076 [at] nyu [dot] edu](mailto:yw3076@nyu.edu) \| [Google Scholar](https://scholar.google.com/citations?user=5BN__1MAAAAJ) \| [X(Twitter)](https://x.com/yingwww_) \| [LinkedIn](linkedin.com/in/ying-wang-90611714a)
+[yw3076[at]nyu[dot]edu](mailto:yw3076@nyu.edu) \| [Google Scholar](https://scholar.google.com/citations?user=5BN__1MAAAAJ) \| [X](https://x.com/yingwww_) \| [LinkedIn](linkedin.com/in/ying-wang-90611714a)

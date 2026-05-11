@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Honored to be recognized as an Outstanding Reviewer for NeurIPS 2025.
+Recognized as an **Outstanding Reviewer** for NeurIPS 2025.
