@@ -290,7 +290,7 @@ const DENSITY = {
 
 // ────────── App ──────────
 function App() {
-  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  const t = TWEAK_DEFAULTS;
   const bg = BG[t.background] || BG.white;
   const fonts = FONTS[t.typeSystem] || FONTS.serif;
   const d = DENSITY[t.density] || DENSITY.regular;
@@ -370,58 +370,6 @@ function App() {
           <span>New York, NY</span>
         </footer>
       </main>
-
-      <TweaksPanel title="Tweaks">
-        <TweakSection label="Typography" />
-        <TweakRadio label="Type" value={t.typeSystem}
-          options={["serif", "sans", "mixed"]}
-          onChange={v => setTweak("typeSystem", v)} />
-        <TweakSlider label="Body size" value={t.fontSize} min={14} max={20} unit="px"
-          onChange={v => setTweak("fontSize", v)} />
-        <TweakRadio label="Density" value={t.density}
-          options={["compact", "regular", "spacious"]}
-          onChange={v => setTweak("density", v)} />
-
-        <TweakSection label="Theme" />
-        <TweakSelect label="Background" value={t.background}
-          options={["white", "paper", "cream", "grey", "ink"]}
-          onChange={v => setTweak("background", v)} />
-        <TweakColor label="Accent" value={t.accent}
-          options={["#7a2e1f", "#3C4A75", "#6078A8", "#86443B", "#4A3866", "#1F4D52", "#7A5A1F", "#1a1a1a"]}
-          onChange={v => setTweak("accent", v)} />
-
-        <TweakSection label="Conference flag" />
-        <TweakSelect label="Flag style" value={t.flagStyle}
-          options={["filled", "outlined", "underline", "bare"]}
-          onChange={v => setTweak("flagStyle", v)} />
-        <TweakSelect label="Tag palette" value={t.tagPalette}
-          options={["sea", "meadow", "honey", "ink", "periwinkle", "slate", "dusk", "stone", "purple", "rose", "ocean", "blush"]}
-          onChange={v => setTweak("tagPalette", v)} />
-        <TweakRadio label="Year" value={t.yearPos}
-          options={["inside", "outside", "hide"]}
-          onChange={v => setTweak("yearPos", v)} />
-        <TweakToggle label="Full venue line" value={t.showFullVenue}
-          onChange={v => setTweak("showFullVenue", v)} />
-
-        <TweakSection label="Publications" />
-        <TweakToggle label="Thumbnails" value={t.showThumbs}
-          onChange={v => setTweak("showThumbs", v)} />
-        <TweakRadio label="Authors" value={t.authorStyle}
-          options={["full", "compact"]}
-          onChange={v => setTweak("authorStyle", v)} />
-
-        <TweakSection label="Header" />
-        <TweakRadio label="Portrait" value={t.headshotPos}
-          options={["right", "left", "top"]}
-          onChange={v => setTweak("headshotPos", v)} />
-        <TweakRadio label="Shape" value={t.headshotShape}
-          options={["circle", "square", "portrait"]}
-          onChange={v => setTweak("headshotShape", v)} />
-
-        <TweakSection label="News" />
-        <TweakSlider label="Items" value={t.newsCount} min={3} max={NEWS.length} step={1}
-          onChange={v => setTweak("newsCount", v)} />
-      </TweaksPanel>
     </div>
   );
 }
