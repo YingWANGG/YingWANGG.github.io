@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{ site.title | default: site.first_name | append: ' ' | append: site.last_name }}</title>
+<title>{% if site.title == "blank" %}{{ site.first_name }} {{ site.last_name }}{% else %}{{ site.title }}{% endif %}</title>
 {%- if site.description %}<meta name="description" content="{{ site.description | strip_html | strip_newlines | truncate: 160 }}">{%- endif %}
 {%- if site.icon != blank and site.icon.size <= 4 %}
 <link rel="shortcut icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>{{ site.icon }}</text></svg>">
