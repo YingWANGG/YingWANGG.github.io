@@ -73,6 +73,13 @@
       {%- if entry.code %}
         <a href="{{ entry.code }}">code</a>
       {%- endif %}
+      {%- if entry.xpost %}
+        {%- assign tweet_id = entry.xpost | split: '/status/' | last | split: '?' | first -%}
+        <a href="{{ entry.xpost }}" class="post-link" data-tweet="{{ tweet_id }}">x post</a>
+      {%- endif %}
+      {%- if entry.linkedin %}
+        <a href="{{ entry.linkedin }}" class="post-link"{% if entry.linkedin_embed %} data-linkedin="{{ entry.linkedin_embed }}"{% endif %}>linkedin</a>
+      {%- endif %}
     </div>
   </div>
 </article>

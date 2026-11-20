@@ -362,6 +362,35 @@
     transform: rotate(0deg) scale(1.06);
   }
 
+  .post-preview {
+    position: absolute;
+    z-index: 50;
+    width: 380px;
+    max-width: calc(100vw - 32px);
+    max-height: 520px;
+    overflow: auto;
+    padding: 6px;
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px oklch(0.4 0.04 60 / 0.18);
+    top: 0; left: 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity .15s ease, visibility .15s;
+  }
+  .post-preview.open { visibility: visible; opacity: 1; }
+  /* the X widget sets visibility on its own iframe, so hide children explicitly */
+  .post-preview:not(.open) * { visibility: hidden !important; pointer-events: none !important; }
+  .post-preview .loading {
+    padding: 18px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-faint);
+  }
+  .post-preview iframe { display: block; width: 100%; height: 500px; border: 0; }
+  .post-preview .twitter-tweet { margin: 0 !important; }
+
   ::selection { background: var(--highlight); color: var(--ink); }
 </style>
 </head>
@@ -413,6 +442,86 @@
   </div>
 
 </main>
+
+<script>
+  // Hovering an "x post" / "linkedin" link shows the embedded post in a popover.
+  // Each link gets its own popover, built on first hover and then kept, so an
+  // embed loads once. Touch screens have no hover and just follow the link.
+  (function () {
+    if (!window.matchMedia('(hover: hover)').matches) return;
+    var twttrReady;
+
+    function loadTwitter() {
+      if (!twttrReady) {
+        twttrReady = new Promise(function (resolve) {
+          var s = document.createElement('script');
+          s.src = 'https://platform.twitter.com/widgets.js';
+          s.async = true;
+          s.onload = function () { window.twttr.ready(resolve); };
+          document.head.appendChild(s);
+        });
+      }
+      return twttrReady;
+    }
+
+    function build(link) {
+      var pop = document.createElement('div');
+      pop.className = 'post-preview';
+      document.body.appendChild(pop);
+      if (link.dataset.tweet) {
+        pop.innerHTML = '<div class="loading">loading post…</div>';
+        loadTwitter().then(function (twttr) {
+          return twttr.widgets.createTweet(link.dataset.tweet, pop,
+            { dnt: true, conversation: 'none', align: 'center' });
+        }).then(function () {
+          var l = pop.querySelector('.loading');
+          if (l) l.remove();
+          if (pop.classList.contains('open')) place(link, pop);
+        });
+      } else {
+        var f = document.createElement('iframe');
+        f.src = 'https://www.linkedin.com/embed/feed/update/' + link.dataset.linkedin;
+        f.title = 'LinkedIn post';
+        pop.appendChild(f);
+      }
+      pop.addEventListener('mouseenter', function () { clearTimeout(link._hide); });
+      pop.addEventListener('mouseleave', function () { hideSoon(link); });
+      return pop;
+    }
+
+    function place(link, pop) {
+      var r = link.getBoundingClientRect();
+      var w = pop.offsetWidth, h = pop.offsetHeight;
+      var left = Math.min(Math.max(16, r.left), window.innerWidth - w - 16);
+      var below = r.bottom + 8, above = r.top - h - 8;
+      var top = (below + h > window.innerHeight && above > 0) ? above : below;
+      pop.style.left = (left + window.scrollX) + 'px';
+      pop.style.top = (top + window.scrollY) + 'px';
+    }
+
+    function hideSoon(link) {
+      clearTimeout(link._show);
+      link._hide = setTimeout(function () {
+        if (link._pop) link._pop.classList.remove('open');
+      }, 250);
+    }
+
+    document.querySelectorAll('.post-link[data-tweet], .post-link[data-linkedin]').forEach(function (link) {
+      link.addEventListener('mouseenter', function () {
+        clearTimeout(link._hide);
+        link._show = setTimeout(function () {
+          document.querySelectorAll('.post-preview.open').forEach(function (p) {
+            if (p !== link._pop) p.classList.remove('open');
+          });
+          link._pop = link._pop || build(link);
+          link._pop.classList.add('open');
+          place(link, link._pop);
+        }, 200);
+      });
+      link.addEventListener('mouseleave', function () { hideSoon(link); });
+    });
+  })();
+</script>
 
 </body>
 </html>
